@@ -4,10 +4,10 @@ const pg = require('pg');
 const dbConnectionString = process.env.ELEPHANT_DB_URL;
 
 
-fs.readFile('test2.csv', 'utf-8', (err, data) => {
+fs.readFile('sheet2.tsv', 'utf-8', (err, data) => {
   let something = data.split('\n');
   const songs = [];
-  // something.shift()
+  something.shift()
   const client = new pg.Client(dbConnectionString);
   client.connect((err) => {
     if (err) {
@@ -16,7 +16,7 @@ fs.readFile('test2.csv', 'utf-8', (err, data) => {
 
     let counter = 0;
     something.forEach(data => {
-      const song = data.split(',');
+      const song = data.split('\t');
       const title = song[0];
       const genre = song[1];
       const composer = song[2];
